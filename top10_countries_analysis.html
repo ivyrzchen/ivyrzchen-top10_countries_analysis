@@ -1,0 +1,2687 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025年3月新用户营收前十国家分析报告</title>
+    <script src="js/chart.min.js"></script>
+    <script src="js/chartjs-plugin-datalabels.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #1cc88a;
+            --text-color: #5a5c69;
+            --light-text: #858796;
+            --bg-color: #f8f9fc;
+            --border-color: #e3e6f0;
+            --heading-color: #2e59d9;
+            --highlight-color: #f6c23e;
+            --card-bg: #ffffff;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--card-bg);
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            border-radius: 0.35rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        h1 {
+            color: var(--heading-color);
+            margin: 0;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: var(--light-text);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        
+        h2 {
+            color: var(--heading-color);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        h4 {
+            color: var(--text-color);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .metric-card {
+            background-color: var(--card-bg);
+            padding: 1.25rem;
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            text-align: center;
+            border-left: 0.25rem solid var(--primary-color);
+        }
+        
+        .metric-card h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 0.5rem 0;
+        }
+        
+        .metric-change {
+            font-size: 0.875rem;
+            color: var(--light-text);
+        }
+        
+        .positive-change {
+            color: var(--secondary-color);
+        }
+        
+        .negative-change {
+            color: #e74a3b;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.25rem 0;
+            font-size: 0.9rem;
+        }
+        
+        table, th, td {
+            border: 1px solid var(--border-color);
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: var(--bg-color);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 22rem;
+            width: 100%;
+            margin: 1.5rem 0;
+        }
+        
+        .multi-chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+        }
+        
+        .chart-wrapper {
+            flex: 1 1 calc(50% - 1.5rem);
+            min-width: 300px;
+            background-color: var(--card-bg);
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chart-wrapper h3 {
+            text-align: center;
+            margin-top: 0;
+            font-size: 1.1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 1.25rem;
+        }
+        
+        ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        ul li:before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        
+        .country-selection {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--bg-color);
+            border-radius: 0.35rem;
+        }
+        
+        .country-selection p {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .strategy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.25rem 0;
+            box-shadow: 0 0.15rem 1.2rem 0 rgba(58, 59, 69, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        .strategy-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            padding: 0.75rem;
+        }
+        
+        .strategy-table td {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .strategy-table tr:nth-child(odd) {
+            background-color: white;
+        }
+        
+        .strategy-table tr:nth-child(even) {
+            background-color: var(--bg-color);
+        }
+        
+        .strategy-table tr:hover {
+            background-color: rgba(78, 115, 223, 0.05);
+        }
+        
+        .strategy-header {
+            background-color: var(--bg-color);
+            font-weight: 700;
+        }
+        
+        .feature-usage-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin: 0 0.75rem 0.5rem 0;
+        }
+        
+        .feature-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.25rem;
+        }
+        
+        .summary-section {
+            padding: 1.25rem;
+            background-color: rgba(28, 200, 138, 0.05);
+            border-left: 0.25rem solid var(--secondary-color);
+            border-radius: 0.35rem;
+            margin: 1.5rem 0;
+        }
+        
+        .summary-section h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+        
+        .alert-section {
+            padding: 1.25rem;
+            background-color: rgba(246, 194, 62, 0.05);
+            border-left: 0.25rem solid var(--highlight-color);
+            border-radius: 0.35rem;
+            margin: 1.5rem 0;
+        }
+        
+        .alert-section h3 {
+            color: var(--highlight-color);
+            margin-top: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
+            
+            .chart-wrapper {
+                flex: 1 1 100%;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            h3 {
+                font-size: 1.1rem;
+            }
+            
+            .multi-chart-container {
+                flex-direction: column;
+            }
+        }
+        
+        .market-analysis-framework {
+            margin: 1rem 0;
+        }
+        
+        .market-segments {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .market-segment {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 0.35rem;
+            padding: 1rem;
+            box-shadow: 0 0.15rem 1.2rem 0 rgba(58, 59, 69, 0.1);
+        }
+        
+        .market-segment h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quadrant-labels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .quadrant-label {
+            position: absolute;
+            font-size: 0.7rem;
+            color: rgba(90, 92, 105, 0.7);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+        
+        @media (max-width: 768px) {
+            .market-segments {
+                grid-template-columns: 1fr;
+            }
+            
+            .quadrant-label {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>2025年3月新用户营收前十国家分析报告</h1>
+        </header>
+
+        <!-- 概览数据可视化部分 -->
+        <div class="section">
+            <h2>市场概览</h2>
+            
+            <div class="multi-chart-container">
+                <div class="chart-wrapper">
+                    <h3>新用户营收分布图</h3>
+                    <div class="chart-container">
+                        <canvas id="revenueDistributionChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-wrapper">
+                    <h3>新用户规模与付费率对比图</h3>
+                    <div class="chart-container">
+                        <canvas id="userScalePaymentRateChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-wrapper">
+                <h3>功能使用率对比图</h3>
+                <div class="chart-container">
+                    <canvas id="featureUsageChart"></canvas>
+                </div>
+                <div class="country-selection">
+                    <p>选择要比较的国家:</p>
+                    <div>
+                        <input type="checkbox" id="country-us" class="country-selector" value="美国" checked>
+                        <label for="country-us">美国</label>
+                        
+                        <input type="checkbox" id="country-kr" class="country-selector" value="韩国" checked>
+                        <label for="country-kr">韩国</label>
+                        
+                        <input type="checkbox" id="country-pk" class="country-selector" value="巴基斯坦">
+                        <label for="country-pk">巴基斯坦</label>
+                        
+                        <input type="checkbox" id="country-uk" class="country-selector" value="英国">
+                        <label for="country-uk">英国</label>
+                        
+                        <input type="checkbox" id="country-ca" class="country-selector" value="加拿大">
+                        <label for="country-ca">加拿大</label>
+                        
+                        <input type="checkbox" id="country-de" class="country-selector" value="德国">
+                        <label for="country-de">德国</label>
+                        
+                        <input type="checkbox" id="country-vn" class="country-selector" value="越南">
+                        <label for="country-vn">越南</label>
+                        
+                        <input type="checkbox" id="country-in" class="country-selector" value="印度">
+                        <label for="country-in">印度</label>
+                        
+                        <input type="checkbox" id="country-br" class="country-selector" value="巴西">
+                        <label for="country-br">巴西</label>
+                        
+                        <input type="checkbox" id="country-fr" class="country-selector" value="法国">
+                        <label for="country-fr">法国</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-wrapper">
+                <h3>市场分层策略表</h3>
+                <div class="table-responsive">
+                    <table id="marketStrategyTable" class="strategy-table"></table>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>总体概况</h2>
+            <div class="editable" contenteditable="true">
+                <h3>新用户营收分布</h3>
+                <p>美国和韩国市场贡献了约47%的前十国家新用户总营收，显示出较强的市场集中度；其余八个国家的营收相对平均分布。</p>
+                
+                <h3>新用户规模与付费率对比</h3>
+                <p>印度拥有最大的新用户基数(50,808人)但付费率仅为0.1%；相比之下，韩国的付费率(4.0%)在前十国家中最高。</p>
+                
+                <h3>功能使用率总体比较</h3>
+                <p>乌克兰用户的功能总使用率最高(86.6%)，TTS功能使用率达到惊人的79.4%；巴西和韩国的Avatar功能使用率显著高于其他国家。</p>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="revenueDistribution"></canvas>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>功能使用特点对比</h2>
+            <p>下图展示了不同国家的功能使用特点对比，可通过选择不同国家进行更精确的比较分析：</p>
+            <div class="chart-wrapper">
+                <h3>各国功能使用率热力图</h3>
+                <div class="chart-container">
+                    <canvas id="functionHeatmapChart"></canvas>
+                </div>
+            </div>
+            <div class="feature-usage-legend">
+                <div class="feature-item">
+                    <div class="feature-color" style="background-color: rgba(78, 115, 223, 0.7);"></div>
+                    <span>TTS</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-color" style="background-color: rgba(28, 200, 138, 0.7);"></div>
+                    <span>Avatar</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-color" style="background-color: rgba(246, 194, 62, 0.7);"></div>
+                    <span>ASR</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-color" style="background-color: rgba(231, 74, 59, 0.7);"></div>
+                    <span>视频翻译</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-color" style="background-color: rgba(54, 185, 204, 0.7);"></div>
+                    <span>视频编辑</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-color" style="background-color: rgba(111, 66, 193, 0.7);"></div>
+                    <span>视频下载</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>市场亮点</h2>
+            <div class="editable" contenteditable="true">
+                <ul>
+                    <li>韩国市场具有最高的新用户付费转化率(4.0%)，表现出强大的付费意愿</li>
+                    <li>美国市场展现出健康的新老用户营收结构，老用户营收($15,560)显著高于新用户($10,838)</li>
+                    <li>乌克兰市场尽管规模适中，但每位付费用户的客单价($232)极高，显著高于其他国家</li>
+                    <li>不同市场展现出明显不同的功能使用偏好，反映了区域性使用习惯差异</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>主要问题与挑战</h2>
+            <div class="editable" contenteditable="true">
+                <ul>
+                    <li>印度和巴基斯坦拥有庞大的用户基数，但付费率极低(分别为0.1%和0.3%)</li>
+                    <li>巴西市场TTS功能使用率仅为11.9%，远低于其他国家平均水平</li>
+                    <li>视频相关功能(翻译、编辑、下载)在所有国家的使用率普遍偏低，未能充分发挥价值</li>
+                    <li>部分国家(如巴基斯坦)的老用户数量和老用户营收比例较低，用户留存存在挑战</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>各国详细分析</h2>
+            
+            <!-- 新增市场分析框架模块 -->
+            <div class="summary-section">
+                <h3>市场分析框架</h3>
+                <div class="market-analysis-framework">
+                    <p>根据新用户营收、付费率和功能使用特点，我们将十大市场分为以下四类：</p>
+                    <div class="market-segments">
+                        <div class="market-segment">
+                            <h4>高价值成熟市场</h4>
+                            <p><strong>国家：</strong>美国、英国、加拿大</p>
+                            <p><strong>特点：</strong>较高付费率（1.6%-2.9%），老用户营收高于新用户营收，用户留存良好</p>
+                            <p><strong>策略：</strong>提高用户生命周期价值，拓展高级功能，深耕现有用户群体</p>
+                        </div>
+                        <div class="market-segment">
+                            <h4>高付费率成长市场</h4>
+                            <p><strong>国家：</strong>韩国、德国</p>
+                            <p><strong>特点：</strong>付费率高（1.6%-4.0%），新用户营收增长快</p>
+                            <p><strong>策略：</strong>加强用户留存，打造本地化体验，提高续订率</p>
+                        </div>
+                        <div class="market-segment">
+                            <h4>特色功能市场</h4>
+                            <p><strong>国家：</strong>越南、巴西、法国、乌克兰</p>
+                            <p><strong>特点：</strong>独特的功能使用偏好（巴西Avatar、乌克兰TTS、法国视频翻译）</p>
+                            <p><strong>策略：</strong>深耕特色功能，开发针对性营销，创造差异化体验</p>
+                        </div>
+                        <div class="market-segment">
+                            <h4>大规模低付费市场</h4>
+                            <p><strong>国家：</strong>印度、巴基斯坦</p>
+                            <p><strong>特点：</strong>庞大用户基数，极低付费率（0.05%-0.3%）</p>
+                            <p><strong>策略：</strong>区域化定价策略，轻量版产品，多元变现模式</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="multi-chart-container">
+                <div class="chart-wrapper">
+                    <h3>市场四象限分析</h3>
+                    <div class="chart-container">
+                        <canvas id="marketQuadrantChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-wrapper">
+                    <h3>新老用户营收结构</h3>
+                    <div class="chart-container">
+                        <canvas id="revenueStructureChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>国家</th>
+                            <th>新注册用户数</th>
+                            <th>新付费用户数</th>
+                            <th>新用户付费率</th>
+                            <th>新用户营收</th>
+                            <th>老用户营收</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>美国</td>
+                            <td>12,068</td>
+                            <td>256</td>
+                            <td>2.1%</td>
+                            <td>$10,838</td>
+                            <td>$15,560</td>
+                        </tr>
+                        <tr>
+                            <td>韩国</td>
+                            <td>1,694</td>
+                            <td>67</td>
+                            <td>4.0%</td>
+                            <td>$4,189</td>
+                            <td>$2,948</td>
+                        </tr>
+                        <tr>
+                            <td>巴基斯坦</td>
+                            <td>16,575</td>
+                            <td>49</td>
+                            <td>0.3%</td>
+                            <td>$921</td>
+                            <td>$326</td>
+                        </tr>
+                        <tr>
+                            <td>英国</td>
+                            <td>2,075</td>
+                            <td>34</td>
+                            <td>1.6%</td>
+                            <td>$1,256</td>
+                            <td>$1,846</td>
+                        </tr>
+                        <tr>
+                            <td>加拿大</td>
+                            <td>1,064</td>
+                            <td>31</td>
+                            <td>2.9%</td>
+                            <td>$1,060</td>
+                            <td>$2,715</td>
+                        </tr>
+                        <tr>
+                            <td>德国</td>
+                            <td>1,763</td>
+                            <td>29</td>
+                            <td>1.6%</td>
+                            <td>$1,101</td>
+                            <td>$1,718</td>
+                        </tr>
+                        <tr>
+                            <td>越南</td>
+                            <td>3,777</td>
+                            <td>26</td>
+                            <td>0.7%</td>
+                            <td>$749</td>
+                            <td>$755</td>
+                        </tr>
+                        <tr>
+                            <td>印度</td>
+                            <td>50,808</td>
+                            <td>24</td>
+                            <td>0.1%</td>
+                            <td>$691</td>
+                            <td>$1,065</td>
+                        </tr>
+                        <tr>
+                            <td>巴西</td>
+                            <td>10,982</td>
+                            <td>17</td>
+                            <td>0.2%</td>
+                            <td>$657</td>
+                            <td>$526</td>
+                        </tr>
+                        <tr>
+                            <td>法国</td>
+                            <td>4,579</td>
+                            <td>17</td>
+                            <td>0.4%</td>
+                            <td>$331</td>
+                            <td>$675</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>综合结论与策略建议</h2>
+            <div class="editable" contenteditable="true">
+                <h3>市场分层策略</h3>
+                <p>基于分析，建议将十大市场分为以下三类，采取差异化策略：</p>
+                
+                <h3>核心功能优化方向</h3>
+                <ul>
+                    <li>TTS功能：大多数国家的主要使用功能，建议加强多语言支持</li>
+                    <li>Avatar功能：韩国、巴西和越南用户偏好明显，建议针对这些市场开发特色Avatar选项</li>
+                    <li>视频相关功能：普遍使用率低，需提高功能可发现性</li>
+                </ul>
+                
+                <h3>商业模式创新</h3>
+                <ul>
+                    <li>区域化定价：针对印度、巴基斯坦等低付费率但高用户量的市场</li>
+                    <li>功能包定价：根据各国用户偏好，提供不同功能组合的定价方案</li>
+                    <li>多元变现模式：对于低付费率市场，考虑广告支持的免费模式</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>美国市场分析</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <td>新注册用户数</td>
+                        <td>12,068</td>
+                    </tr>
+                    <tr>
+                        <td>新付费用户数</td>
+                        <td>256</td>
+                    </tr>
+                    <tr>
+                        <td>新用户付费率</td>
+                        <td>2.1%</td>
+                    </tr>
+                    <tr>
+                        <td>新用户营收</td>
+                        <td>$10,838</td>
+                    </tr>
+                    <tr>
+                        <td>老用户营收</td>
+                        <td>$15,560</td>
+                    </tr>
+                </table>
+            </div>
+            <h3>市场特点</h3>
+            <div class="editable-content" contenteditable="true">
+                美国市场是目前最大的新用户营收来源，拥有稳定的付费转化以及优质的客单价。老用户营收($15,560)高于新用户营收($10,838)，显示出良好的用户生命周期价值。
+            </div>
+            <h3>功能使用偏好</h3>
+            <div class="chart-container">
+                <canvas id="usaFeatureChart"></canvas>
+            </div>
+            <h3>改进建议</h3>
+            <div class="editable-content" contenteditable="true">
+                <ul>
+                    <li>提高视频相关功能的可发现性和使用引导，目前这些功能的使用率均低于2%</li>
+                    <li>考虑将TTS功能与Avatar功能进行捆绑推广，提高Avatar功能使用率</li>
+                    <li>针对556位老付费用户设计专属续费优惠，进一步提高老用户营收贡献</li>
+                    <li>设计阶梯式付费模式，鼓励中低频用户提高使用频次和功能探索</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>韩国市场分析</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <td>新注册用户数</td>
+                        <td>1,694</td>
+                    </tr>
+                    <tr>
+                        <td>新付费用户数</td>
+                        <td>67</td>
+                    </tr>
+                    <tr>
+                        <td>新用户付费率</td>
+                        <td>4.0%</td>
+                    </tr>
+                    <tr>
+                        <td>新用户营收</td>
+                        <td>$4,189</td>
+                    </tr>
+                    <tr>
+                        <td>老用户营收</td>
+                        <td>$2,948</td>
+                    </tr>
+                </table>
+            </div>
+            <h3>市场特点</h3>
+            <div class="editable-content" contenteditable="true">
+                韩国市场展现出极高的付费意愿，付费率(4.0%)在前十国家中最高，客单价也处于较高水平。新用户营收($4,189)远高于老用户营收($2,948)，表明市场仍处于增长期，用户留存策略需要加强。
+            </div>
+            <h3>功能使用偏好</h3>
+            <div class="chart-container">
+                <canvas id="koreaFeatureChart"></canvas>
+            </div>
+            <h3>改进建议</h3>
+            <div class="editable-content" contenteditable="true">
+                <ul>
+                    <li>开发更多针对韩国市场的Avatar定制功能，该市场Avatar使用率(37.1%)显著高于其他国家</li>
+                    <li>加强用户留存策略，将高付费意愿的新用户转化为长期老用户</li>
+                    <li>针对韩语TTS功能进行优化，目前使用率(14.7%)远低于其他主要市场</li>
+                    <li>考虑与韩国本地内容创作者合作，推广产品使用场景，扩大用户基数</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>乌克兰市场分析</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <td>新注册用户数</td>
+                        <td>3,338</td>
+                    </tr>
+                    <tr>
+                        <td>新付费用户数</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>新用户付费率</td>
+                        <td>0.2%</td>
+                    </tr>
+                    <tr>
+                        <td>新用户营收</td>
+                        <td>$1,390</td>
+                    </tr>
+                    <tr>
+                        <td>老用户营收</td>
+                        <td>$408</td>
+                    </tr>
+                </table>
+            </div>
+            <h3>市场特点</h3>
+            <div class="editable-content" contenteditable="true">
+                乌克兰市场表现出非常独特的特征：虽然付费率极低(0.2%)，但平均客单价异常高（每位付费用户约$232），新用户营收占总营收的77.3%。这表明少数高价值用户贡献了主要营收，可能与特定企业或项目需求相关。
+            </div>
+            <h3>功能使用偏好</h3>
+            <div class="chart-container">
+                <canvas id="ukraineFeatureChart"></canvas>
+            </div>
+            <h3>改进建议</h3>
+            <div class="editable-content" contenteditable="true">
+                <ul>
+                    <li>分析高客单价背后的用户需求，了解这些高价值用户的使用场景</li>
+                    <li>进一步优化乌克兰语TTS功能，满足当地用户的高频使用需求</li>
+                    <li>设计更低价位的入门付费方案，提高整体付费转化率</li>
+                    <li>利用高使用率用户群体，开展有针对性的付费功能教育和宣传</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>英国市场分析</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <td>新注册用户数</td>
+                        <td>2,075</td>
+                    </tr>
+                    <tr>
+                        <td>新付费用户数</td>
+                        <td>34</td>
+                    </tr>
+                    <tr>
+                        <td>新用户付费率</td>
+                        <td>1.6%</td>
+                    </tr>
+                    <tr>
+                        <td>新用户营收</td>
+                        <td>$1,256</td>
+                    </tr>
+                    <tr>
+                        <td>老用户营收</td>
+                        <td>$1,846</td>
+                    </tr>
+                </table>
+            </div>
+            <h3>市场特点</h3>
+            <div class="editable-content" contenteditable="true">
+                英国市场展现出良好的用户结构：新老用户营收比较平衡，老用户营收($1,846)略高于新用户($1,256)，老付费用户数(73)明显高于新付费用户数(34)，显示出良好的用户留存和价值沉淀。
+            </div>
+            <h3>功能使用偏好</h3>
+            <div class="chart-container">
+                <canvas id="ukFeatureChart"></canvas>
+            </div>
+            <h3>改进建议</h3>
+            <div class="editable-content" contenteditable="true">
+                <ul>
+                    <li>为老用户提供带来新用户的推荐奖励计划，利用现有的良好用户基础扩大影响</li>
+                    <li>基于英国用户的使用习惯，开发英式英语语音模型，提升TTS功能体验</li>
+                    <li>针对ASR功能进行优化，其使用率(6.1%)在主要市场中相对较高</li>
+                    <li>设计长期用户忠诚度奖励机制，进一步提高续订率和用户终身价值</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>加拿大市场分析</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <td>新注册用户数</td>
+                        <td>1,064</td>
+                    </tr>
+                    <tr>
+                        <td>新付费用户数</td>
+                        <td>31</td>
+                    </tr>
+                    <tr>
+                        <td>新用户付费率</td>
+                        <td>2.9%</td>
+                    </tr>
+                    <tr>
+                        <td>新用户营收</td>
+                        <td>$1,060</td>
+                    </tr>
+                    <tr>
+                        <td>老用户营收</td>
+                        <td>$2,715</td>
+                    </tr>
+                </table>
+            </div>
+            <h3>市场特点</h3>
+            <div class="editable-content" contenteditable="true">
+                加拿大市场展现出良好的新老用户平衡，老用户营收($2,715)高于新用户($1,060)，显示出稳定的用户基础和良好的付费转化。
+            </div>
+            <h3>功能使用偏好</h3>
+            <div class="chart-container">
+                <canvas id="canadaFeatureChart"></canvas>
+            </div>
+            <h3>改进建议</h3>
+            <div class="editable-content" contenteditable="true">
+                <ul>
+                    <li>加强视频相关功能的推广，提高用户使用率</li>
+                    <li>开发针对加拿大市场的本地化内容，提升用户参与度</li>
+                    <li>设计针对老用户的忠诚度计划，进一步提高用户留存</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>德国市场分析</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <td>新注册用户数</td>
+                        <td>1,763</td>
+                    </tr>
+                    <tr>
+                        <td>新付费用户数</td>
+                        <td>29</td>
+                    </tr>
+                    <tr>
+                        <td>新用户付费率</td>
+                        <td>1.6%</td>
+                    </tr>
+                    <tr>
+                        <td>新用户营收</td>
+                        <td>$1,101</td>
+                    </tr>
+                    <tr>
+                        <td>老用户营收</td>
+                        <td>$1,718</td>
+                    </tr>
+                </table>
+            </div>
+            <h3>市场特点</h3>
+            <div class="editable-content" contenteditable="true">
+                德国市场与英国类似，展现出良好的新老用户平衡：老用户营收($1,718)高于新用户($1,101)，老付费用户数(59)远高于新付费用户数(29)。
+            </div>
+            <h3>功能使用偏好</h3>
+            <div class="chart-container">
+                <canvas id="germanyFeatureChart"></canvas>
+            </div>
+            <h3>改进建议</h3>
+            <div class="editable-content" contenteditable="true">
+                <ul>
+                    <li>为老用户提供带来新用户的推荐奖励计划</li>
+                    <li>开发德语语音模型，提升TTS功能体验</li>
+                    <li>设计长期用户忠诚度奖励机制</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>越南市场分析</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <td>新注册用户数</td>
+                        <td>3,777</td>
+                    </tr>
+                    <tr>
+                        <td>新付费用户数</td>
+                        <td>26</td>
+                    </tr>
+                    <tr>
+                        <td>新用户付费率</td>
+                        <td>0.7%</td>
+                    </tr>
+                    <tr>
+                        <td>新用户营收</td>
+                        <td>$749</td>
+                    </tr>
+                    <tr>
+                        <td>老用户营收</td>
+                        <td>$755</td>
+                    </tr>
+                </table>
+            </div>
+            <h3>市场特点</h3>
+            <div class="editable-content" contenteditable="true">
+                越南市场展现出独特的功能使用偏好：Avatar功能使用率(30.7%)显著高于其他市场，仅次于巴西和韩国。新老用户营收较为平衡，老用户营收($755)略高于新用户($749)，表明一定程度的用户留存。
+            </div>
+            <h3>功能使用偏好</h3>
+            <div class="chart-container">
+                <canvas id="vietnamFeatureChart"></canvas>
+            </div>
+            <h3>改进建议</h3>
+            <div class="editable-content" contenteditable="true">
+                <ul>
+                    <li>加强越南语Avatar功能开发，针对当地用户偏好提供更多样化的Avatar选项</li>
+                    <li>探索TTS和Avatar功能结合的特色使用场景，创造差异化体验</li>
+                    <li>考虑开发针对越南市场的特定营销活动，提高付费转化率</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>印度市场分析</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <td>新注册用户数</td>
+                        <td>50,808</td>
+                    </tr>
+                    <tr>
+                        <td>新付费用户数</td>
+                        <td>24</td>
+                    </tr>
+                    <tr>
+                        <td>新用户付费率</td>
+                        <td>0.1%</td>
+                    </tr>
+                    <tr>
+                        <td>新用户营收</td>
+                        <td>$691</td>
+                    </tr>
+                    <tr>
+                        <td>老用户营收</td>
+                        <td>$1,065</td>
+                    </tr>
+                </table>
+            </div>
+            <h3>市场特点</h3>
+            <div class="editable-content" contenteditable="true">
+                印度市场拥有最大的用户基数(50,808)，但付费率极低(0.1%)，是前十国家中最低的。功能总使用率高达68.9%，特别是TTS功能使用率达到56.0%，表明用户对产品有强烈需求但付费能力有限。
+            </div>
+            <h3>功能使用偏好</h3>
+            <div class="chart-container">
+                <canvas id="indiaFeatureChart"></canvas>
+            </div>
+            <h3>改进建议</h3>
+            <div class="editable-content" contenteditable="true">
+                <ul>
+                    <li>开发印度市场特定定价策略，提供更符合当地经济水平的付费方案</li>
+                    <li>针对庞大的用户基础，实施多种变现模式，如广告支持的免费版本</li>
+                    <li>强化印地语及其他印度地区语言的TTS支持，提升用户体验</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>巴西市场分析</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <td>新注册用户数</td>
+                        <td>10,982</td>
+                    </tr>
+                    <tr>
+                        <td>新付费用户数</td>
+                        <td>17</td>
+                    </tr>
+                    <tr>
+                        <td>新用户付费率</td>
+                        <td>0.2%</td>
+                    </tr>
+                    <tr>
+                        <td>新用户营收</td>
+                        <td>$657</td>
+                    </tr>
+                    <tr>
+                        <td>老用户营收</td>
+                        <td>$526</td>
+                    </tr>
+                </table>
+            </div>
+            <h3>市场特点</h3>
+            <div class="editable-content" contenteditable="true">
+                巴西市场展现出独特的功能使用偏好：Avatar功能使用率高达38.7%，在前十国家中最高；而TTS功能使用率仅为11.9%，远低于其他国家。巴西市场的用户付费率低(0.2%)但客单价相对较高($38.6)。
+            </div>
+            <h3>功能使用偏好</h3>
+            <div class="chart-container">
+                <canvas id="brazilFeatureChart"></canvas>
+            </div>
+            <h3>改进建议</h3>
+            <div class="editable-content" contenteditable="true">
+                <ul>
+                    <li>加强巴西葡萄牙语Avatar功能开发，针对当地用户偏好提供更多样化的选项</li>
+                    <li>分析巴西用户对TTS功能使用率低的原因，可能需要改进葡萄牙语TTS质量</li>
+                    <li>开发适合巴西社交媒体和内容创作市场的特色功能和营销方案</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>法国市场分析</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <td>新注册用户数</td>
+                        <td>4,579</td>
+                    </tr>
+                    <tr>
+                        <td>新付费用户数</td>
+                        <td>17</td>
+                    </tr>
+                    <tr>
+                        <td>新用户付费率</td>
+                        <td>0.4%</td>
+                    </tr>
+                    <tr>
+                        <td>新用户营收</td>
+                        <td>$331</td>
+                    </tr>
+                    <tr>
+                        <td>老用户营收</td>
+                        <td>$675</td>
+                    </tr>
+                </table>
+            </div>
+            <h3>市场特点</h3>
+            <div class="editable-content" contenteditable="true">
+                法国市场展现出稳定的用户基础，老用户营收($675)高于新用户($331)，显示出良好的用户留存和价值沉淀。法国市场最独特的特点是视频翻译功能使用率异常高(53.7%)，远超其他国家和功能。
+            </div>
+            <h3>功能使用偏好</h3>
+            <div class="chart-container">
+                <canvas id="franceFeatureChart"></canvas>
+            </div>
+            <h3>改进建议</h3>
+            <div class="editable-content" contenteditable="true">
+                <ul>
+                    <li>重点优化视频翻译功能，特别是法语相关的翻译质量和用户体验</li>
+                    <li>针对视频翻译的高使用率，开发更多相关的衍生功能和增值服务</li>
+                    <li>加强法国市场的本地化内容开发，提升用户参与度</li>
+                    <li>设计针对老用户的忠诚度计划，进一步提高用户留存</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 国家名称数据定义
+        const countryNames = ['美国', '韩国', '乌克兰', '英国', '德国', '越南', '巴西', '法国', '印度', '加拿大'];
+        
+        // 新用户数量数据
+        const newUserCounts = [12068, 1694, 3338, 2075, 1846, 3591, 1982, 1672, 10342, 1328];
+        
+        // 新付费用户数据
+        const newPayingUsers = [256, 67, 6, 34, 30, 18, 25, 16, 34, 38];
+        
+        // 新用户付费率数据 (%)
+        const newUserPayRates = [2.1, 4.0, 0.2, 1.6, 1.6, 0.5, 1.3, 1.0, 0.3, 2.9];
+        
+        // 新用户营收数据 ($)
+        const newUserRevenue = [10838, 4189, 1390, 1256, 1189, 1154, 891, 775, 765, 698];
+        
+        // 老用户营收数据 ($)
+        const oldUserRevenue = [15560, 2948, 408, 1846, 1632, 456, 542, 612, 195, 1245];
+        
+        // 功能使用率数据 (%)
+        const featureUsageRates = {
+            'TTS': {
+                '美国': 46.74,
+                '韩国': 14.70,
+                '乌克兰': 79.42,
+                '英国': 36.48,
+                '德国': 43.96,
+                '越南': 32.57,
+                '巴西': 11.92,
+                '法国': 11.81,
+                '印度': 55.98,
+                '加拿大': 38.35
+            },
+            'Avatar': {
+                '美国': 13.71,
+                '韩国': 37.13,
+                '乌克兰': 5.99,
+                '英国': 16.10,
+                '德国': 15.71,
+                '越南': 30.74,
+                '巴西': 38.70,
+                '法国': 6.68,
+                '印度': 9.37,
+                '加拿大': 14.19
+            },
+            'ASR': {
+                '美国': 5.89,
+                '韩国': 1.48,
+                '乌克兰': 1.47,
+                '英国': 6.07,
+                '德国': 6.52,
+                '越南': 3.87,
+                '巴西': 2.73,
+                '法国': 2.01,
+                '印度': 3.27,
+                '加拿大': 4.79
+            },
+            '视频翻译': {
+                '美国': 0.82,
+                '韩国': 0.89,
+                '乌克兰': 0.12,
+                '英国': 0.92,
+                '德国': 1.19,
+                '越南': 0.45,
+                '巴西': 0.34,
+                '法国': 53.72,
+                '印度': 1.07,
+                '加拿大': 0.75
+            },
+            '视频编辑': {
+                '美国': 0.82,
+                '韩国': 1.06,
+                '乌克兰': 0.30,
+                '英国': 0.92,
+                '德国': 0.85,
+                '越南': 0.32,
+                '巴西': 0.25,
+                '法国': 0.15,
+                '印度': 0.23,
+                '加拿大': 0.56
+            },
+            '视频下载': {
+                '美国': 1.88,
+                '韩国': 1.24,
+                '乌克兰': 0.30,
+                '英国': 1.54,
+                '德国': 1.47,
+                '越南': 0.61,
+                '巴西': 0.25,
+                '法国': 0.85,
+                '印度': 1.87,
+                '加拿大': 1.50
+            }
+        };
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 渲染新用户营收分布图（环形图）
+            renderRevenueDistributionChart();
+            // 渲染新用户规模与付费率对比图（双Y轴柱状图）
+            renderUserScalePaymentRateChart();
+            // 渲染功能使用率对比图（雷达图）
+            renderFeatureUsageChart();
+            // 渲染各个国家的功能使用渗透图
+            renderCountryFeatureUsageCharts();
+            // 创建市场分层策略表
+            createMarketStrategyTable();
+            // 渲染功能使用率热力图
+            renderFunctionHeatmapChart();
+            
+            // 添加国家选择功能，动态更新雷达图
+            const countrySelectors = document.querySelectorAll('.country-selector');
+            if (countrySelectors.length > 0) {
+                countrySelectors.forEach(selector => {
+                    selector.addEventListener('change', function() {
+                        const selectedCountries = Array.from(document.querySelectorAll('.country-selector:checked')).map(el => el.value);
+                        updateRadarChart(selectedCountries);
+                    });
+                });
+            }
+            
+            // 渲染市场四象限分析图
+            renderMarketQuadrantChart();
+            
+            // 渲染新老用户营收结构图
+            renderRevenueStructureChart();
+            
+            // 添加各国家功能使用偏好图表
+            renderCountryFeatureCharts();
+        });
+        
+        // 渲染新用户营收分布图（环形图）
+        function renderRevenueDistributionChart() {
+            const ctx = document.getElementById('revenueDistributionChart');
+            if (!ctx) return;
+            
+            // 计算其他国家营收总和
+            const topCountriesRevenue = newUserRevenue.slice(0, 10);
+            const total = topCountriesRevenue.reduce((a, b) => a + b, 0);
+            
+            // 计算百分比
+            const percentages = topCountriesRevenue.map(value => ((value / total) * 100).toFixed(1));
+            
+            const revenueDistributionChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: countryNames,
+                    datasets: [{
+                        data: topCountriesRevenue,
+                        backgroundColor: [
+                            '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', 
+                            '#e74a3b', '#6f42c1', '#fd7e14', '#20c9a6', 
+                            '#5a5c69', '#858796'
+                        ],
+                        borderWidth: 1,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 12,
+                                font: {
+                                    size: 12
+                                },
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    if (data.labels.length && data.datasets.length) {
+                                        return data.labels.map(function(label, i) {
+                                            const value = data.datasets[0].data[i];
+                                            const percentage = percentages[i];
+                                            return {
+                                                text: `${label}: $${value.toLocaleString()} (${percentage}%)`,
+                                                fillStyle: data.datasets[0].backgroundColor[i],
+                                                lineWidth: 1,
+                                                strokeStyle: data.datasets[0].backgroundColor[i],
+                                                index: i
+                                            };
+                                        });
+                                    }
+                                    return [];
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return `${label}: $${value.toLocaleString()} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+        }
+        
+        // 渲染新用户规模与付费率对比图（双Y轴柱状图）
+        function renderUserScalePaymentRateChart() {
+            const ctx = document.getElementById('userScalePaymentRateChart');
+            if (!ctx) return;
+            
+            const userScalePaymentRateChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: countryNames,
+                    datasets: [
+                        {
+                            label: '新注册用户数',
+                            data: newUserCounts,
+                            backgroundColor: 'rgba(78, 115, 223, 0.6)',
+                            borderColor: 'rgba(78, 115, 223, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: '新用户付费率 (%)',
+                            data: newUserPayRates,
+                            type: 'line',
+                            backgroundColor: 'rgba(28, 200, 138, 0.05)',
+                            borderColor: 'rgba(28, 200, 138, 1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(28, 200, 138, 1)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            fill: true,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: '新注册用户数'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    if (value >= 1000) {
+                                        return (value / 1000).toFixed(0) + 'k';
+                                    }
+                                    return value;
+                                }
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: '新用户付费率 (%)'
+                            },
+                            min: 0,
+                            max: Math.max(...newUserPayRates) * 1.2,
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toFixed(1) + '%';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    let value = context.raw;
+                                    
+                                    if (label === '新注册用户数') {
+                                        return `${label}: ${value.toLocaleString()}`;
+                                    } else {
+                                        return `${label}: ${value.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 渲染功能使用率对比图（雷达图）
+        function renderFeatureUsageChart() {
+            const ctx = document.getElementById('featureUsageChart');
+            if (!ctx) return;
+            
+            const featureUsageChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['TTS', 'Avatar', 'ASR', '视频翻译', '视频编辑', '视频下载'],
+                    datasets: [
+                        {
+                            label: '美国',
+                            data: [featureUsageRates['TTS']['美国'], featureUsageRates['Avatar']['美国'], featureUsageRates['ASR']['美国'], featureUsageRates['视频翻译']['美国'], featureUsageRates['视频编辑']['美国'], featureUsageRates['视频下载']['美国']],
+                            backgroundColor: 'rgba(78, 115, 223, 0.2)',
+                            borderColor: 'rgba(78, 115, 223, 1)',
+                            pointBackgroundColor: 'rgba(78, 115, 223, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(78, 115, 223, 1)'
+                        },
+                        {
+                            label: '韩国',
+                            data: [featureUsageRates['TTS']['韩国'], featureUsageRates['Avatar']['韩国'], featureUsageRates['ASR']['韩国'], featureUsageRates['视频翻译']['韩国'], featureUsageRates['视频编辑']['韩国'], featureUsageRates['视频下载']['韩国']],
+                            backgroundColor: 'rgba(28, 200, 138, 0.2)',
+                            borderColor: 'rgba(28, 200, 138, 1)',
+                            pointBackgroundColor: 'rgba(28, 200, 138, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(28, 200, 138, 1)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: {
+                            borderWidth: 2
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true,
+                                lineWidth: 0.5,
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                },
+                                backdropColor: 'transparent'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw.toFixed(1)}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 渲染各个国家的功能使用渗透图
+        function renderCountryFeatureUsageCharts() {
+            const countryFeatureData = [
+                { country: '美国', tts: featureUsageRates['TTS']['美国'], avatar: featureUsageRates['Avatar']['美国'], asr: featureUsageRates['ASR']['美国'], videoTrans: featureUsageRates['视频翻译']['美国'] },
+                { country: '韩国', tts: featureUsageRates['TTS']['韩国'], avatar: featureUsageRates['Avatar']['韩国'], asr: featureUsageRates['ASR']['韩国'], videoTrans: featureUsageRates['视频翻译']['韩国'] },
+                { country: '乌克兰', tts: featureUsageRates['TTS']['乌克兰'], avatar: featureUsageRates['Avatar']['乌克兰'], asr: featureUsageRates['ASR']['乌克兰'], videoTrans: featureUsageRates['视频翻译']['乌克兰'] },
+                { country: '英国', tts: featureUsageRates['TTS']['英国'], avatar: featureUsageRates['Avatar']['英国'], asr: featureUsageRates['ASR']['英国'], videoTrans: featureUsageRates['视频翻译']['英国'] },
+                { country: '德国', tts: featureUsageRates['TTS']['德国'], avatar: featureUsageRates['Avatar']['德国'], asr: featureUsageRates['ASR']['德国'], videoTrans: featureUsageRates['视频翻译']['德国'] },
+                { country: '越南', tts: featureUsageRates['TTS']['越南'], avatar: featureUsageRates['Avatar']['越南'], asr: featureUsageRates['ASR']['越南'], videoTrans: featureUsageRates['视频翻译']['越南'] },
+                { country: '巴西', tts: featureUsageRates['TTS']['巴西'], avatar: featureUsageRates['Avatar']['巴西'], asr: featureUsageRates['ASR']['巴西'], videoTrans: featureUsageRates['视频翻译']['巴西'] },
+                { country: '法国', tts: featureUsageRates['TTS']['法国'], avatar: featureUsageRates['Avatar']['法国'], asr: featureUsageRates['ASR']['法国'], videoTrans: featureUsageRates['视频翻译']['法国'] },
+                { country: '印度', tts: featureUsageRates['TTS']['印度'], avatar: featureUsageRates['Avatar']['印度'], asr: featureUsageRates['ASR']['印度'], videoTrans: featureUsageRates['视频翻译']['印度'] },
+                { country: '加拿大', tts: featureUsageRates['TTS']['加拿大'], avatar: featureUsageRates['Avatar']['加拿大'], asr: featureUsageRates['ASR']['加拿大'], videoTrans: featureUsageRates['视频翻译']['加拿大'] }
+            ];
+            
+            // 添加各国功能使用率图表的canvas元素
+            countryFeatureData.forEach((data, index) => {
+                const countrySection = document.querySelector(`.section:nth-of-type(${index + 8})`);
+                if (!countrySection) return;
+
+                const functionUsageSection = countrySection.querySelector('h3:nth-of-type(2)');
+                if (!functionUsageSection) return;
+                
+                // 检查是否已有canvas，如果没有则创建
+                const canvasId = `countryFeatureChart${index}`;
+                let chartContainer = countrySection.querySelector('.chart-container');
+                
+                if (!chartContainer) {
+                    chartContainer = document.createElement('div');
+                    chartContainer.classList.add('chart-container');
+                    chartContainer.style.height = '250px';
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.id = canvasId;
+                    chartContainer.appendChild(canvas);
+                    
+                    // 将图表容器插入到功能使用偏好标题之后
+                    functionUsageSection.after(chartContainer);
+                }
+                
+                const canvas = document.getElementById(canvasId);
+                if (!canvas) return;
+                
+                const ctx = canvas.getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TTS', 'Avatar', 'ASR', '视频翻译', '视频编辑', '视频下载'],
+                        datasets: [{
+                            label: `${data.country}功能使用率`,
+                            data: [data.tts, data.avatar, data.asr, data.videoTrans],
+                            backgroundColor: [
+                                'rgba(78, 115, 223, 0.7)',
+                                'rgba(28, 200, 138, 0.7)',
+                                'rgba(246, 194, 62, 0.7)',
+                                'rgba(231, 74, 59, 0.7)',
+                                'rgba(54, 185, 204, 0.7)',
+                                'rgba(111, 66, 193, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(78, 115, 223, 1)',
+                                'rgba(28, 200, 138, 1)',
+                                'rgba(246, 194, 62, 1)',
+                                'rgba(231, 74, 59, 1)',
+                                'rgba(54, 185, 204, 1)',
+                                'rgba(111, 66, 193, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: Math.max(data.tts, data.avatar, data.asr, data.videoTrans) * 1.2,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `使用率: ${context.raw.toFixed(1)}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        }
+        
+        // 创建市场分层策略表
+        function createMarketStrategyTable() {
+            const data = [
+                { segment: "高价值低体量市场", countries: "韩国、加拿大", characteristics: "较高付费率，高客单价，小用户基数", strategy: "优化用户体验，增加高级功能，提高用户留存" },
+                { segment: "高价值高体量市场", countries: "美国、英国、德国", characteristics: "中等付费率，高客单价，较大用户基数", strategy: "深度耕耘市场，推出区域专属内容，提高用户生命周期价值" },
+                { segment: "低价值高体量市场", countries: "印度、巴基斯坦、巴西", characteristics: "极低付费率，庞大用户基数", strategy: "优化获客成本，适应本地支付习惯，提供价格亲民的订阅方案" },
+                { segment: "特色功能市场", countries: "法国、越南", characteristics: "独特的功能使用偏好", strategy: "针对特定功能优化，如法国的视频翻译，越南的Avatar功能" }
+            ];
+            
+            const table = document.getElementById('marketStrategyTable');
+            if (table) {
+                let html = `
+                <thead>
+                    <tr>
+                        <th>市场分层</th>
+                        <th>国家</th>
+                        <th>特点</th>
+                        <th>策略建议</th>
+                    </tr>
+                </thead>
+                <tbody>
+                `;
+                
+                data.forEach(row => {
+                    html += `
+                    <tr>
+                        <td class="strategy-header">${row.segment}</td>
+                        <td>${row.countries}</td>
+                        <td>${row.characteristics}</td>
+                        <td>${row.strategy}</td>
+                    </tr>
+                    `;
+                });
+                
+                html += '</tbody>';
+                table.innerHTML = html;
+            }
+        }
+        
+        // 更新雷达图函数
+        function updateRadarChart(selectedCountries) {
+            const chart = Chart.getChart('featureUsageChart');
+            if (!chart) return;
+            
+            const allCountryData = [
+                { 
+                    country: '美国', 
+                    data: [featureUsageRates['TTS']['美国'], featureUsageRates['Avatar']['美国'], featureUsageRates['ASR']['美国'], featureUsageRates['视频翻译']['美国'], featureUsageRates['视频编辑']['美国'], featureUsageRates['视频下载']['美国']],
+                    color: 'rgba(78, 115, 223, 1)',
+                    bgColor: 'rgba(78, 115, 223, 0.2)'
+                },
+                { 
+                    country: '韩国', 
+                    data: [featureUsageRates['TTS']['韩国'], featureUsageRates['Avatar']['韩国'], featureUsageRates['ASR']['韩国'], featureUsageRates['视频翻译']['韩国'], featureUsageRates['视频编辑']['韩国'], featureUsageRates['视频下载']['韩国']],
+                    color: 'rgba(28, 200, 138, 1)',
+                    bgColor: 'rgba(28, 200, 138, 0.2)'
+                },
+                { 
+                    country: '乌克兰', 
+                    data: [featureUsageRates['TTS']['乌克兰'], featureUsageRates['Avatar']['乌克兰'], featureUsageRates['ASR']['乌克兰'], featureUsageRates['视频翻译']['乌克兰'], featureUsageRates['视频编辑']['乌克兰'], featureUsageRates['视频下载']['乌克兰']],
+                    color: 'rgba(246, 194, 62, 1)',
+                    bgColor: 'rgba(246, 194, 62, 0.2)'
+                },
+                { 
+                    country: '英国', 
+                    data: [featureUsageRates['TTS']['英国'], featureUsageRates['Avatar']['英国'], featureUsageRates['ASR']['英国'], featureUsageRates['视频翻译']['英国'], featureUsageRates['视频编辑']['英国'], featureUsageRates['视频下载']['英国']],
+                    color: 'rgba(231, 74, 59, 1)',
+                    bgColor: 'rgba(231, 74, 59, 0.2)'
+                },
+                { 
+                    country: '德国', 
+                    data: [featureUsageRates['TTS']['德国'], featureUsageRates['Avatar']['德国'], featureUsageRates['ASR']['德国'], featureUsageRates['视频翻译']['德国'], featureUsageRates['视频编辑']['德国'], featureUsageRates['视频下载']['德国']],
+                    color: 'rgba(54, 185, 204, 1)',
+                    bgColor: 'rgba(54, 185, 204, 0.2)'
+                },
+                { 
+                    country: '越南', 
+                    data: [featureUsageRates['TTS']['越南'], featureUsageRates['Avatar']['越南'], featureUsageRates['ASR']['越南'], featureUsageRates['视频翻译']['越南'], featureUsageRates['视频编辑']['越南'], featureUsageRates['视频下载']['越南']],
+                    color: 'rgba(253, 126, 20, 1)',
+                    bgColor: 'rgba(253, 126, 20, 0.2)'
+                },
+                { 
+                    country: '巴西', 
+                    data: [featureUsageRates['TTS']['巴西'], featureUsageRates['Avatar']['巴西'], featureUsageRates['ASR']['巴西'], featureUsageRates['视频翻译']['巴西'], featureUsageRates['视频编辑']['巴西'], featureUsageRates['视频下载']['巴西']],
+                    color: 'rgba(90, 92, 105, 1)',
+                    bgColor: 'rgba(90, 92, 105, 0.2)'
+                },
+                { 
+                    country: '法国', 
+                    data: [featureUsageRates['TTS']['法国'], featureUsageRates['Avatar']['法国'], featureUsageRates['ASR']['法国'], featureUsageRates['视频翻译']['法国'], featureUsageRates['视频编辑']['法国'], featureUsageRates['视频下载']['法国']],
+                    color: 'rgba(133, 135, 150, 1)',
+                    bgColor: 'rgba(133, 135, 150, 0.2)'
+                },
+                { 
+                    country: '印度', 
+                    data: [featureUsageRates['TTS']['印度'], featureUsageRates['Avatar']['印度'], featureUsageRates['ASR']['印度'], featureUsageRates['视频翻译']['印度'], featureUsageRates['视频编辑']['印度'], featureUsageRates['视频下载']['印度']],
+                    color: 'rgba(32, 201, 166, 1)',
+                    bgColor: 'rgba(32, 201, 166, 0.2)'
+                },
+                { 
+                    country: '加拿大', 
+                    data: [featureUsageRates['TTS']['加拿大'], featureUsageRates['Avatar']['加拿大'], featureUsageRates['ASR']['加拿大'], featureUsageRates['视频翻译']['加拿大'], featureUsageRates['视频编辑']['加拿大'], featureUsageRates['视频下载']['加拿大']],
+                    color: 'rgba(111, 66, 193, 1)',
+                    bgColor: 'rgba(111, 66, 193, 0.2)'
+                }
+            ];
+            
+            // 过滤选中的国家数据
+            const filteredData = allCountryData.filter(item => selectedCountries.includes(item.country));
+            
+            // 最少保留两个国家的数据
+            let dataToShow = filteredData.length >= 2 ? filteredData : allCountryData.slice(0, 2);
+            
+            // 更新图表数据
+            chart.data.datasets = dataToShow.map(country => {
+                return {
+                    label: country.country,
+                    data: country.data,
+                    backgroundColor: country.bgColor,
+                    borderColor: country.color,
+                    pointBackgroundColor: country.color,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: country.color
+                };
+            });
+            
+            chart.update();
+        }
+
+        // 渲染功能使用率热力图
+        function renderFunctionHeatmapChart() {
+            const ctx = document.getElementById('functionHeatmapChart');
+            if (!ctx) return;
+            
+            const allFunctionData = {
+                labels: ['TTS', 'Avatar', 'ASR', '视频翻译', '视频编辑', '视频下载'],
+                datasets: [
+                    {
+                        label: '美国',
+                        data: [featureUsageRates['TTS']['美国'], featureUsageRates['Avatar']['美国'], featureUsageRates['ASR']['美国'], featureUsageRates['视频翻译']['美国'], featureUsageRates['视频编辑']['美国'], featureUsageRates['视频下载']['美国']],
+                        backgroundColor: 'rgba(78, 115, 223, 0.7)',
+                        borderColor: 'rgba(78, 115, 223, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '韩国',
+                        data: [featureUsageRates['TTS']['韩国'], featureUsageRates['Avatar']['韩国'], featureUsageRates['ASR']['韩国'], featureUsageRates['视频翻译']['韩国'], featureUsageRates['视频编辑']['韩国'], featureUsageRates['视频下载']['韩国']],
+                        backgroundColor: 'rgba(28, 200, 138, 0.7)',
+                        borderColor: 'rgba(28, 200, 138, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '乌克兰',
+                        data: [featureUsageRates['TTS']['乌克兰'], featureUsageRates['Avatar']['乌克兰'], featureUsageRates['ASR']['乌克兰'], featureUsageRates['视频翻译']['乌克兰'], featureUsageRates['视频编辑']['乌克兰'], featureUsageRates['视频下载']['乌克兰']],
+                        backgroundColor: 'rgba(246, 194, 62, 0.7)',
+                        borderColor: 'rgba(246, 194, 62, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '英国',
+                        data: [featureUsageRates['TTS']['英国'], featureUsageRates['Avatar']['英国'], featureUsageRates['ASR']['英国'], featureUsageRates['视频翻译']['英国'], featureUsageRates['视频编辑']['英国'], featureUsageRates['视频下载']['英国']],
+                        backgroundColor: 'rgba(231, 74, 59, 0.7)',
+                        borderColor: 'rgba(231, 74, 59, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '德国',
+                        data: [featureUsageRates['TTS']['德国'], featureUsageRates['Avatar']['德国'], featureUsageRates['ASR']['德国'], featureUsageRates['视频翻译']['德国'], featureUsageRates['视频编辑']['德国'], featureUsageRates['视频下载']['德国']],
+                        backgroundColor: 'rgba(54, 185, 204, 0.7)',
+                        borderColor: 'rgba(54, 185, 204, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '越南',
+                        data: [featureUsageRates['TTS']['越南'], featureUsageRates['Avatar']['越南'], featureUsageRates['ASR']['越南'], featureUsageRates['视频翻译']['越南'], featureUsageRates['视频编辑']['越南'], featureUsageRates['视频下载']['越南']],
+                        backgroundColor: 'rgba(253, 126, 20, 0.7)',
+                        borderColor: 'rgba(253, 126, 20, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '巴西',
+                        data: [featureUsageRates['TTS']['巴西'], featureUsageRates['Avatar']['巴西'], featureUsageRates['ASR']['巴西'], featureUsageRates['视频翻译']['巴西'], featureUsageRates['视频编辑']['巴西'], featureUsageRates['视频下载']['巴西']],
+                        backgroundColor: 'rgba(90, 92, 105, 0.7)',
+                        borderColor: 'rgba(90, 92, 105, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '法国',
+                        data: [featureUsageRates['TTS']['法国'], featureUsageRates['Avatar']['法国'], featureUsageRates['ASR']['法国'], featureUsageRates['视频翻译']['法国'], featureUsageRates['视频编辑']['法国'], featureUsageRates['视频下载']['法国']],
+                        backgroundColor: 'rgba(133, 135, 150, 0.7)',
+                        borderColor: 'rgba(133, 135, 150, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '印度',
+                        data: [featureUsageRates['TTS']['印度'], featureUsageRates['Avatar']['印度'], featureUsageRates['ASR']['印度'], featureUsageRates['视频翻译']['印度'], featureUsageRates['视频编辑']['印度'], featureUsageRates['视频下载']['印度']],
+                        backgroundColor: 'rgba(32, 201, 166, 0.7)',
+                        borderColor: 'rgba(32, 201, 166, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '加拿大',
+                        data: [featureUsageRates['TTS']['加拿大'], featureUsageRates['Avatar']['加拿大'], featureUsageRates['ASR']['加拿大'], featureUsageRates['视频翻译']['加拿大'], featureUsageRates['视频编辑']['加拿大'], featureUsageRates['视频下载']['加拿大']],
+                        backgroundColor: 'rgba(111, 66, 193, 0.7)',
+                        borderColor: 'rgba(111, 66, 193, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            };
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: allFunctionData,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 12,
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw.toFixed(1)}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        y: {
+                            stacked: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // 删除旧的图表实例，防止重复初始化
+        function removeExistingCharts() {
+            const existingCharts = Chart.getChart('revenueDistribution');
+            if (existingCharts) existingCharts.destroy();
+            
+            const existingFeatureChart = Chart.getChart('featureUsage');
+            if (existingFeatureChart) existingFeatureChart.destroy();
+        }
+
+        // 初始化时删除旧图表
+        removeExistingCharts();
+        
+        // 渲染市场四象限分析图（散点图）
+        function renderMarketQuadrantChart() {
+            const ctx = document.getElementById('marketQuadrantChart');
+            if (!ctx) return;
+            
+            // 计算用户规模系数（为了可视化效果）
+            const userScaleFactors = newUserCounts.map(count => Math.sqrt(count) / 10);
+            
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: '市场四象限分析',
+                        data: countryNames.map((country, i) => ({
+                            x: newUserPayRates[i],
+                            y: newUserRevenue[i],
+                            r: userScaleFactors[i]
+                        })),
+                        backgroundColor: [
+                            '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', 
+                            '#e74a3b', '#6f42c1', '#fd7e14', '#20c9a6', 
+                            '#5a5c69', '#858796'
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 1,
+                        pointStyle: 'circle',
+                        pointRadius: userScaleFactors,
+                        pointHoverRadius: userScaleFactors.map(r => r + 2)
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: '新用户付费率 (%)'
+                            },
+                            suggestedMin: 0,
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toFixed(1) + '%';
+                                }
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: '新用户营收 ($)'
+                            },
+                            suggestedMin: 0
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = countryNames[context.dataIndex];
+                                    const userCount = newUserCounts[context.dataIndex].toLocaleString();
+                                    const payRate = newUserPayRates[context.dataIndex].toFixed(1);
+                                    const revenue = newUserRevenue[context.dataIndex].toLocaleString();
+                                    return [
+                                        `${label}`,
+                                        `新用户数: ${userCount}`,
+                                        `付费率: ${payRate}%`,
+                                        `营收: $${revenue}`
+                                    ];
+                                }
+                            }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        annotation: {
+                            annotations: {
+                                xLine: {
+                                    type: 'line',
+                                    xMin: 1,
+                                    xMax: 1,
+                                    borderColor: 'rgba(0, 0, 0, 0.1)',
+                                    borderWidth: 1,
+                                    borderDash: [5, 5]
+                                },
+                                yLine: {
+                                    type: 'line',
+                                    yMin: 1000,
+                                    yMax: 1000,
+                                    borderColor: 'rgba(0, 0, 0, 0.1)',
+                                    borderWidth: 1,
+                                    borderDash: [5, 5]
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 添加四象限说明
+            const chartContainer = ctx.parentElement;
+            const quadrantLabels = document.createElement('div');
+            quadrantLabels.className = 'quadrant-labels';
+            quadrantLabels.innerHTML = `
+                <div class="quadrant-label" style="top: 10%; right: 10%;">高价值成熟市场</div>
+                <div class="quadrant-label" style="top: 10%; left: 10%;">高付费率成长市场</div>
+                <div class="quadrant-label" style="bottom: 10%; right: 10%;">特色功能市场</div>
+                <div class="quadrant-label" style="bottom: 10%; left: 10%;">大规模低付费市场</div>
+            `;
+            chartContainer.appendChild(quadrantLabels);
+        }
+        
+        // 渲染新老用户营收结构图（堆叠柱状图）
+        function renderRevenueStructureChart() {
+            const ctx = document.getElementById('revenueStructureChart');
+            if (!ctx) return;
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: countryNames,
+                    datasets: [
+                        {
+                            label: '新用户营收',
+                            data: newUserRevenue,
+                            backgroundColor: 'rgba(78, 115, 223, 0.7)',
+                            borderColor: 'rgba(78, 115, 223, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: '老用户营收',
+                            data: oldUserRevenue,
+                            backgroundColor: 'rgba(28, 200, 138, 0.7)',
+                            borderColor: 'rgba(28, 200, 138, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: '营收额 ($)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: $${context.raw.toLocaleString()}`;
+                                },
+                                footer: function(tooltipItems) {
+                                    const index = tooltipItems[0].dataIndex;
+                                    const newRev = newUserRevenue[index];
+                                    const oldRev = oldUserRevenue[index];
+                                    const total = newRev + oldRev;
+                                    const newPercent = ((newRev / total) * 100).toFixed(1);
+                                    const oldPercent = ((oldRev / total) * 100).toFixed(1);
+                                    return [
+                                        `总营收: $${total.toLocaleString()}`,
+                                        `新用户占比: ${newPercent}%`,
+                                        `老用户占比: ${oldPercent}%`
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 渲染各个国家的功能使用偏好图表
+        function renderCountryFeatureCharts() {
+            // 美国功能使用偏好图表
+            const usaCtx = document.getElementById('usaFeatureChart');
+            if (usaCtx) {
+                new Chart(usaCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TTS语音合成', 'Avatar虚拟形象', 'ASR语音识别', '视频翻译', '视频编辑', '视频下载'],
+                        datasets: [{
+                            label: '使用率(%)',
+                            data: [
+                                featureUsageRates['TTS']['美国'],
+                                featureUsageRates['Avatar']['美国'],
+                                featureUsageRates['ASR']['美国'],
+                                featureUsageRates['视频翻译']['美国'],
+                                featureUsageRates['视频编辑']['美国'],
+                                featureUsageRates['视频下载']['美国']
+                            ],
+                            backgroundColor: [
+                                'rgba(78, 115, 223, 0.7)',
+                                'rgba(28, 200, 138, 0.7)',
+                                'rgba(246, 194, 62, 0.7)',
+                                'rgba(231, 74, 59, 0.7)',
+                                'rgba(54, 185, 204, 0.7)',
+                                'rgba(111, 66, 193, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `使用率: ${context.raw.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 韩国功能使用偏好图表
+            const koreaCtx = document.getElementById('koreaFeatureChart');
+            if (koreaCtx) {
+                new Chart(koreaCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TTS语音合成', 'Avatar虚拟形象', 'ASR语音识别', '视频翻译', '视频编辑', '视频下载'],
+                        datasets: [{
+                            label: '使用率(%)',
+                            data: [
+                                featureUsageRates['TTS']['韩国'],
+                                featureUsageRates['Avatar']['韩国'],
+                                featureUsageRates['ASR']['韩国'],
+                                featureUsageRates['视频翻译']['韩国'],
+                                featureUsageRates['视频编辑']['韩国'],
+                                featureUsageRates['视频下载']['韩国']
+                            ],
+                            backgroundColor: [
+                                'rgba(78, 115, 223, 0.7)',
+                                'rgba(28, 200, 138, 0.7)',
+                                'rgba(246, 194, 62, 0.7)',
+                                'rgba(231, 74, 59, 0.7)',
+                                'rgba(54, 185, 204, 0.7)',
+                                'rgba(111, 66, 193, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `使用率: ${context.raw.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 乌克兰功能使用偏好图表
+            const ukraineCtx = document.getElementById('ukraineFeatureChart');
+            if (ukraineCtx) {
+                new Chart(ukraineCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TTS语音合成', 'Avatar虚拟形象', 'ASR语音识别', '视频翻译', '视频编辑', '视频下载'],
+                        datasets: [{
+                            label: '使用率(%)',
+                            data: [
+                                featureUsageRates['TTS']['乌克兰'],
+                                featureUsageRates['Avatar']['乌克兰'],
+                                featureUsageRates['ASR']['乌克兰'],
+                                featureUsageRates['视频翻译']['乌克兰'],
+                                featureUsageRates['视频编辑']['乌克兰'],
+                                featureUsageRates['视频下载']['乌克兰']
+                            ],
+                            backgroundColor: [
+                                'rgba(78, 115, 223, 0.7)',
+                                'rgba(28, 200, 138, 0.7)',
+                                'rgba(246, 194, 62, 0.7)',
+                                'rgba(231, 74, 59, 0.7)',
+                                'rgba(54, 185, 204, 0.7)',
+                                'rgba(111, 66, 193, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `使用率: ${context.raw.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 英国功能使用偏好图表
+            const ukCtx = document.getElementById('ukFeatureChart');
+            if (ukCtx) {
+                new Chart(ukCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TTS语音合成', 'Avatar虚拟形象', 'ASR语音识别', '视频翻译', '视频编辑', '视频下载'],
+                        datasets: [{
+                            label: '使用率(%)',
+                            data: [
+                                featureUsageRates['TTS']['英国'],
+                                featureUsageRates['Avatar']['英国'],
+                                featureUsageRates['ASR']['英国'],
+                                featureUsageRates['视频翻译']['英国'],
+                                featureUsageRates['视频编辑']['英国'],
+                                featureUsageRates['视频下载']['英国']
+                            ],
+                            backgroundColor: [
+                                'rgba(78, 115, 223, 0.7)',
+                                'rgba(28, 200, 138, 0.7)',
+                                'rgba(246, 194, 62, 0.7)',
+                                'rgba(231, 74, 59, 0.7)',
+                                'rgba(54, 185, 204, 0.7)',
+                                'rgba(111, 66, 193, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `使用率: ${context.raw.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 德国功能使用偏好图表
+            const germanyCtx = document.getElementById('germanyFeatureChart');
+            if (germanyCtx) {
+                new Chart(germanyCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TTS语音合成', 'Avatar虚拟形象', 'ASR语音识别', '视频翻译', '视频编辑', '视频下载'],
+                        datasets: [{
+                            label: '使用率(%)',
+                            data: [
+                                featureUsageRates['TTS']['德国'],
+                                featureUsageRates['Avatar']['德国'],
+                                featureUsageRates['ASR']['德国'],
+                                featureUsageRates['视频翻译']['德国'],
+                                featureUsageRates['视频编辑']['德国'],
+                                featureUsageRates['视频下载']['德国']
+                            ],
+                            backgroundColor: [
+                                'rgba(78, 115, 223, 0.7)',
+                                'rgba(28, 200, 138, 0.7)',
+                                'rgba(246, 194, 62, 0.7)',
+                                'rgba(231, 74, 59, 0.7)',
+                                'rgba(54, 185, 204, 0.7)',
+                                'rgba(111, 66, 193, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `使用率: ${context.raw.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 越南功能使用偏好图表
+            const vietnamCtx = document.getElementById('vietnamFeatureChart');
+            if (vietnamCtx) {
+                new Chart(vietnamCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TTS语音合成', 'Avatar虚拟形象', 'ASR语音识别', '视频翻译', '视频编辑', '视频下载'],
+                        datasets: [{
+                            label: '使用率(%)',
+                            data: [
+                                featureUsageRates['TTS']['越南'],
+                                featureUsageRates['Avatar']['越南'],
+                                featureUsageRates['ASR']['越南'],
+                                featureUsageRates['视频翻译']['越南'],
+                                featureUsageRates['视频编辑']['越南'],
+                                featureUsageRates['视频下载']['越南']
+                            ],
+                            backgroundColor: [
+                                'rgba(78, 115, 223, 0.7)',
+                                'rgba(28, 200, 138, 0.7)',
+                                'rgba(246, 194, 62, 0.7)',
+                                'rgba(231, 74, 59, 0.7)',
+                                'rgba(54, 185, 204, 0.7)',
+                                'rgba(111, 66, 193, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `使用率: ${context.raw.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 印度功能使用偏好图表
+            const indiaCtx = document.getElementById('indiaFeatureChart');
+            if (indiaCtx) {
+                new Chart(indiaCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TTS语音合成', 'Avatar虚拟形象', 'ASR语音识别', '视频翻译', '视频编辑', '视频下载'],
+                        datasets: [{
+                            label: '使用率(%)',
+                            data: [
+                                featureUsageRates['TTS']['印度'],
+                                featureUsageRates['Avatar']['印度'],
+                                featureUsageRates['ASR']['印度'],
+                                featureUsageRates['视频翻译']['印度'],
+                                featureUsageRates['视频编辑']['印度'],
+                                featureUsageRates['视频下载']['印度']
+                            ],
+                            backgroundColor: [
+                                'rgba(78, 115, 223, 0.7)',
+                                'rgba(28, 200, 138, 0.7)',
+                                'rgba(246, 194, 62, 0.7)',
+                                'rgba(231, 74, 59, 0.7)',
+                                'rgba(54, 185, 204, 0.7)',
+                                'rgba(111, 66, 193, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `使用率: ${context.raw.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 巴西功能使用偏好图表
+            const brazilCtx = document.getElementById('brazilFeatureChart');
+            if (brazilCtx) {
+                new Chart(brazilCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TTS语音合成', 'Avatar虚拟形象', 'ASR语音识别', '视频翻译', '视频编辑', '视频下载'],
+                        datasets: [{
+                            label: '使用率(%)',
+                            data: [
+                                featureUsageRates['TTS']['巴西'],
+                                featureUsageRates['Avatar']['巴西'],
+                                featureUsageRates['ASR']['巴西'],
+                                featureUsageRates['视频翻译']['巴西'],
+                                featureUsageRates['视频编辑']['巴西'],
+                                featureUsageRates['视频下载']['巴西']
+                            ],
+                            backgroundColor: [
+                                'rgba(78, 115, 223, 0.7)',
+                                'rgba(28, 200, 138, 0.7)',
+                                'rgba(246, 194, 62, 0.7)',
+                                'rgba(231, 74, 59, 0.7)',
+                                'rgba(54, 185, 204, 0.7)',
+                                'rgba(111, 66, 193, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `使用率: ${context.raw.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 法国功能使用偏好图表
+            const franceCtx = document.getElementById('franceFeatureChart');
+            if (franceCtx) {
+                new Chart(franceCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TTS语音合成', 'Avatar虚拟形象', 'ASR语音识别', '视频翻译', '视频编辑', '视频下载'],
+                        datasets: [{
+                            label: '使用率(%)',
+                            data: [
+                                featureUsageRates['TTS']['法国'],
+                                featureUsageRates['Avatar']['法国'],
+                                featureUsageRates['ASR']['法国'],
+                                featureUsageRates['视频翻译']['法国'],
+                                featureUsageRates['视频编辑']['法国'],
+                                featureUsageRates['视频下载']['法国']
+                            ],
+                            backgroundColor: [
+                                'rgba(78, 115, 223, 0.7)',
+                                'rgba(28, 200, 138, 0.7)',
+                                'rgba(246, 194, 62, 0.7)',
+                                'rgba(231, 74, 59, 0.7)',
+                                'rgba(54, 185, 204, 0.7)',
+                                'rgba(111, 66, 193, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `使用率: ${context.raw.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 加拿大功能使用偏好图表
+            const canadaCtx = document.getElementById('canadaFeatureChart');
+            if (canadaCtx) {
+                new Chart(canadaCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TTS语音合成', 'Avatar虚拟形象', 'ASR语音识别', '视频翻译', '视频编辑', '视频下载'],
+                        datasets: [{
+                            label: '使用率(%)',
+                            data: [
+                                featureUsageRates['TTS']['加拿大'],
+                                featureUsageRates['Avatar']['加拿大'],
+                                featureUsageRates['ASR']['加拿大'],
+                                featureUsageRates['视频翻译']['加拿大'],
+                                featureUsageRates['视频编辑']['加拿大'],
+                                featureUsageRates['视频下载']['加拿大']
+                            ],
+                            backgroundColor: [
+                                'rgba(78, 115, 223, 0.7)',
+                                'rgba(28, 200, 138, 0.7)',
+                                'rgba(246, 194, 62, 0.7)',
+                                'rgba(231, 74, 59, 0.7)',
+                                'rgba(54, 185, 204, 0.7)',
+                                'rgba(111, 66, 193, 0.7)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `使用率: ${context.raw.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html> 
